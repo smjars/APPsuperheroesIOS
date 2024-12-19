@@ -56,9 +56,19 @@ extension SuperheroListViewController: UITableViewDataSource, UITableViewDelegat
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SuperheroCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SuperheroCell", for: indexPath) as? SuperheroTableViewCell else {
+            return UITableViewCell()
+        }
         let superhero = superheroes[indexPath.row]
-        cell.textLabel?.text = superhero.name
+        cell.nameLabel.text = superhero.name
+        if let url = URL(string: superhero.images.sm) {
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard let data = data, error == nil else { return }
+                DispatchQueue.main.async {
+                    cell.superheroImageView.image = UIImage(data: data)
+                }
+            }.resume()
+        }
         return cell
     }
 
