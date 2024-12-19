@@ -36,7 +36,10 @@ class SuperheroListViewController: UIViewController {
         guard let url = URL(string: urlString) else { return }
 
         URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
+            guard let data = data, error == nil else {
+                print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
 
             do {
                 self.superheroes = try JSONDecoder().decode([Superhero].self, from: data)
@@ -44,7 +47,7 @@ class SuperheroListViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             } catch {
-                print(error)
+                print("Error decoding data: \(error)")
             }
         }.resume()
     }
