@@ -79,4 +79,9 @@ extension SuperheroListViewController: UITableViewDataSource, UITableViewDelegat
         let superhero = superheroes[indexPath.row]
         // Navegar a la vista de detalles
     }
+
+    // Agrega este método para ajustar la altura de las celdas
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 183 // Establece la altura de la celda, puedes ajustar este valor según sea necesario
+    }
 }
