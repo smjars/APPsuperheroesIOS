@@ -76,7 +76,7 @@ extension SuperheroListViewController: UITableViewDataSource, UITableViewDelegat
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let superhero = superheroes[indexPath.row]
+        performSegue(withIdentifier: "showDetailSegue", sender: self)
         // Navegar a la vista de detalles
     }
 
